@@ -18,6 +18,7 @@ function App() {
         >
           Learn React
         </a>
+        <div id ='time'/>
       </header>
     </div>
   );
