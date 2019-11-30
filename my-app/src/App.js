@@ -18,7 +18,8 @@ function App() {
         >
           Learn React
         </a>
-        <div id ='time'/>
+        <div id='time' />
+        <div id='gura'/>
       </header>
     </div>
   );
