@@ -20,8 +20,6 @@ export default class App extends React.Component {
           >
             Learn React
           </a>
-          <div id='time' />
-          <div id='gura' />
         </header>
       </div>
     );
