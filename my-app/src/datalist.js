@@ -3,15 +3,24 @@ import React, { PureComponent } from 'react';
 export default class datalist extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { day: [], name: [] };
-        this.daylist = [];
-
-        // fetch("http://localhost:4000/soil_day")
-        //     .then(response => response.json())
-        //     .then(day => this.setState({ day }));
+        this.state = {
+            day: [],
+            name: []
+        };
+        this.daylist = ["Year", "Month", "Day"];
+        this.dateMap = {
+            Year: [],
+            Month: [],
+            Day: []
+        }
+        this.post("http://localhost:4000/post", "%Y", "Year");
+        this.post("http://localhost:4000/post", "%m", "Month");
+        this.post("http://localhost:4000/post", "%d", "Day");
     }
+
     post(url, Dataselect, keyword) {
-        return fetch(url,
+        var key = Object.keys(this.state)
+        fetch(url,
             {
                 method: "POST",
                 headers: {
@@ -24,31 +33,52 @@ export default class datalist extends React.Component {
             }
         )
             .then(res => res.json())
-            .then(function (response) {  // レスポンス結果 
-                return response;
-            }, function (error) {  // エラー内容 
-                console.log("error: " + error);
-                return error;
-            });
+            .then(data => this.setState({ day: this.state.day.concat(data) })
+            );
+    }
+    onClick() {
+        console.log("adaf");
     }
     render() {
-        // 日付問い合わせ
-        var date_key = ["%Y", "%m", "%d"];
-        var date_keyword = ["Year", "Month", "Day"];
-        var data=[]
-        for (let index = 0; index < date_key.length; index++) {
-            data.push(this.post("http://localhost:4000/post", date_key[index], date_keyword[index]));
-            data[index].then(function (response) {  // レスポンス結果 
-                console.log(response);
-            });
-        }
-        return (
-            
-            // <select>
-            //     {this.state.day.map(d => <option value={d.DAY}>{d.DAY}日</option>)}
-            // </select>
+        // dataリストのkeyで回す
+        for (const key in this.daylist) {
+            if (this.daylist.hasOwnProperty(key)) {
 
-            <p></p>
+                // APIの問い合わせ結果で回す
+                for (const dataNumber in this.state.day) {
+                    if (this.state.day.hasOwnProperty(dataNumber)) {
+
+                        // キーワードが同一判定
+                        if (Object.keys(this.state.day[dataNumber])[0] ==
+                            this.daylist[key]) {
+
+                            // キーワードが一致したものを指定の位置に再配置
+                            this.dateMap[this.daylist[key]].push(this.state.day[dataNumber][this.daylist[key]]);
+                            // 追加データ元を削除
+                            delete this.state.day[dataNumber]
+                        }
+
+                    }
+                }
+
+            }
+        }
+
+        return (
+            <div>
+                <select>
+                    {this.dateMap.Year.map(d => <option value={d}>{d}年</option>)}
+                </select>
+                <select>
+                    {this.dateMap.Month.map(d => <option value={d}>{d}月</option>)}
+                </select>
+                <select>
+                    {this.dateMap.Day.map(d => <option value={d}>{d}日</option>)}
+                </select>
+                <button onClick={() => { this.onClick() }}>
+                    クリック
+                </button>
+            </div>
         )
     }
 
