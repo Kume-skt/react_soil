@@ -24,7 +24,7 @@ app.listen(4000, function () {
 
 const mysql = require("mysql");
 const connection = mysql.createConnection({
-  host: "192.168.11.10",
+  host: "192.168.1.9",
   user: "root",
   password: "password",
   database: "kumeta"
@@ -61,7 +61,7 @@ app.post("/post", function (req, res) {
   // リクエストボディを出力
   console.log(req.body);
 
-  connection.query("SELECT DATE_FORMAT(Date, '{}') AS {} FROM soil  GROUP BY {}".format(req.body.key, req.body.dataword,req.body.dataword), function (
+  connection.query("SELECT DATE_FORMAT(Date, '{}') AS {} FROM soil  GROUP BY {}".format(req.body.key, req.body.dataword, req.body.dataword), function (
     error,
     results,
     fields
@@ -70,4 +70,20 @@ app.post("/post", function (req, res) {
     console.log(results)
     res.send(results);
   });
+});
+
+app.post("/graph", function (req, res) {
+  // リクエストボディを出力
+  console.log(req.body);
+
+  connection.query("SELECT * FROM soil WHERE DATE BETWEEN '2020-1-1' AND '{}-{}-{}'".format(req.body.Year,req.body.Month,req.body.Day),
+    function (
+      error,
+      results,
+      fields
+    ) {
+      if (error) throw error;
+      console.log(results)
+      res.send(results);
+    });
 });

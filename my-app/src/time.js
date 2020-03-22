@@ -7,7 +7,7 @@ function Date_time() {
   var d = new Date();
 
   var year = d.getFullYear();
-  var mo = d.getMonth();
+  var mo = d.getMonth() + 1;
   var day = d.getDate();
   var hour = d.getHours();
   var minutes = d.getMinutes();
@@ -15,7 +15,7 @@ function Date_time() {
 
   return (year + "年" + mo + "月" + day + "日" + hour + "時" + minutes + "分" + socond + "秒");
 }
-function time_render() { 
+function time_render() {
   const te = (
     <div>
       <h2>
