@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Graph from './graph';
+import Calendar from './calendar'
 export default class datalist extends React.Component {
     constructor(props) {
         super(props);
@@ -22,6 +23,7 @@ export default class datalist extends React.Component {
         this.post("http://localhost:4000/post", "%Y", "Year");
         this.post("http://localhost:4000/post", "%m", "Month");
         this.post("http://localhost:4000/post", "%d", "Day");
+
     }
     post(url, Dataselect, keyword) {
         fetch(url,
@@ -43,7 +45,7 @@ export default class datalist extends React.Component {
 
     onClick() {
         console.log(this.state);
-        
+
     }
 
     ChangeYearEvent(e) {
@@ -55,17 +57,18 @@ export default class datalist extends React.Component {
     ChangeDayEvent(e) {
         this.saveDate[2] = e.target.value;
     }
-    ChangeDatehEvent() { 
+    ChangeDatehEvent() {
         this.setState({
             ...this.state,
             selectYear: this.saveDate[0],
             selectMonth: this.saveDate[1],
-            selectDay:this.saveDate[2]
+            selectDay: this.saveDate[2]
         })
     }
 
     render() {
         // dataリストのkeyで回す
+
         for (const key in this.daylist) {
             if (this.daylist.hasOwnProperty(key)) {
 
@@ -110,7 +113,10 @@ export default class datalist extends React.Component {
                     クリック
                 </button>
 
-                <div><Graph Gy={this.state.selectYear} Gm={this.state.selectMonth} Gd={this.state.selectDay}/></div>
+                <div><Graph Gy={this.state.selectYear} Gm={this.state.selectMonth} Gd={this.state.selectDay} /></div>
+
+                <div><Calendar /></div>
+
             </div>
         )
     }
