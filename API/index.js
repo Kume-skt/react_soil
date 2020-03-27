@@ -77,7 +77,7 @@ app.post("/graph", function (req, res) {
   // リクエストボディを出力
   console.log(req.body);
 
-  connection.query("SELECT * FROM soil WHERE DATE BETWEEN '{}-{}-{}' AND '{}-{}-{}'"
+  connection.query("SELECT DATE, ((soil_value/1015)*100) AS soil_value from soil WHERE DATE BETWEEN '{}-{}-{}' AND '{}-{}-{}'"
     .format(
       
       req.body.oldYear,

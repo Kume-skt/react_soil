@@ -119,7 +119,7 @@ export default class datalist extends React.Component {
 
         return (
 
-            <div>
+            <div className = "test">
                 <button onClick={() => { this.onClickDay() }}>
                     １日
                 </button><button onClick={() => { this.onClickWeek() }}>
@@ -146,8 +146,8 @@ export default class datalist extends React.Component {
                     クリック
                 </button>
 
-                <div><Graph nowDate={this.state.nowDate}oldDate={this.state.oldDate} /></div>
-
+                <div><Graph className="test" nowDate={this.state.nowDate} oldDate={this.state.oldDate} /></div>
+                
                 <div><Calendar /></div>
 
             </div>

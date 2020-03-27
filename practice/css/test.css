@@ -1,0 +1,17 @@
+#test{
+    text-align: center;
+    font-size: 50px;
+}
+#test .class{
+    font-size: 10px;
+    color: #000;
+
+}
+.print{
+    font-size: 2px;
+    color:aqua;
+}
+#print{
+    font-size: 2px;
+    color:rgb(255, 0, 0);
+}

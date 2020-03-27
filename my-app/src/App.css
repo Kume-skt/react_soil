@@ -1,22 +1,61 @@
-.App {
+#App {
   text-align: center;
-}
+  /* 追記 */
+  background-image: url('./img/back_hatake.jpg');
+  background-size: cover;
+  display: inline-block;
+  margin: 0,auto;
+  background-color: blueviolet;
+ 
+ }
 
 .App-logo {
   height: 40vmin;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+  background-color:white;
+  /* display: inline-block; */
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  text-align: left;
+  /* margin-top: 5px;
+  margin-left: 5%;
+  margin-right: 5%; */
+  font-size: calc(20px + 2vmin);
+  color: black;
+}
+.App-header img{
+  display: inline;
+}
+.App-header h1{
+  vertical-align: top;
+  display: inline;
 }
 
 .App-link {
   color: #09d3ac;
+}
+#App .graph{
+  width: 80%;
+  max-width: 1000px;
+  /* max-height:500px ; */
+  text-align: center;
+  margin-left: 5%;
+  margin-right: 5%;
+  background-color: white;
+}
+#time{
+  color:darkorange;
+}
+.test{
+  display: inline-block;
+  text-align: center;
+  background-color: white;
+}
+#App .time{
+  text-align: center;
+}
+botton{
+  color: #00BCD4;
+  background: #ECECEC;
 }

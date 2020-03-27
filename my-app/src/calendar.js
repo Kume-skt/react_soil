@@ -53,7 +53,10 @@ export default class MyApp extends React.Component {
     onclic(e) {
         var date = this.getFormatDate(e);
         var savem = this.state.month_days
-        savem[date] = { text: 'test' }
+        savem[date] = {
+            text: 'test',
+            is_holiday: true
+        }
         console.log(this.state.month_days);
         this.getTileClass = this.getTileClass.bind(this);
         this.getTileContent = this.getTileContent.bind(this);
@@ -70,6 +73,7 @@ export default class MyApp extends React.Component {
                 locale="ja-JP"
                 value={this.state.date}
                 calendarType="Hebrew"
+                classname={"class1"}
                 tileClassName={this.getTileClass}
                 tileContent={this.getTileContent}
                 onClickDay={(e) => this.onclic(e)}

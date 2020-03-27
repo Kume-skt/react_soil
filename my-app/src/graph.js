@@ -4,7 +4,7 @@ import {
 } from 'recharts';
 
 export default class graph extends PureComponent {
-    static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
+    // static jsfiddleUrl = 'https://jsfiddle.net/alidingling/xqjtetw0/';
     constructor(props) {
         super(props);
         this.state = {
@@ -16,7 +16,7 @@ export default class graph extends PureComponent {
     }
 
     getGraphData(now, old) {
-        fetch("http://localhost:4000/graph",
+        fetch("http://192.168.0.3:4000/graph",
             {
                 method: "POST",
                 headers: {
@@ -28,7 +28,7 @@ export default class graph extends PureComponent {
                     nowMonth: now.getMonth() + 1,
                     /*下記の+1は、現時点での日付が帰ってくる
                     しかし、今日のも併せてみたいので翌日の日付を送る*/
-                    nowDay: now.getDate()+1,
+                    nowDay: now.getDate() + 1,
 
                     oldYear: old.getFullYear(),
                     oldMonth: old.getMonth() + 1,
@@ -38,11 +38,8 @@ export default class graph extends PureComponent {
             .then(response => response.json())
             .then(posts => this.setState({ posts }));
     }
+    //親からの情報取得
     componentWillReceiveProps(nextpro) {
-        console.log(nextpro.nowDate);
-        console.log(nextpro.oldDate);
-        
-        
         this.getGraphData(nextpro.nowDate, nextpro.oldDate)
     }
     SetSelectYear(item) {
@@ -56,20 +53,26 @@ export default class graph extends PureComponent {
     }
     render() {
         return (
-            <div>
+            <div className="graph">
 
                 <LineChart
                     width={700}
                     height={300}
                     data={this.state.posts}
                     margin={{
+                        top: 5, right: window.innerWidth * 0.05, left: window.innerWidth * 0.05
+                    }
 
-                        top: 5, right: 30, left: 20, bottom: 5,
-                    }}
+                    }
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="Date" />
-                    <YAxis />
+                    <XAxis
+                        dataKey="DATE"
+                    />
+                    <YAxis
+                        ticks={[0, 10, 25, 50, 75, 100]} // Y軸に表示する温度
+                        unit="%" // Y軸の単位
+                    />
                     <Tooltip />
                     <Legend />
                     <Line type="monotone" dataKey="soil_value" stroke="#82ca9d" />
