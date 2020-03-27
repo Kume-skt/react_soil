@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Calendar from 'react-calendar';
+import calen from "./calendar.css"
 
 export default class MyApp extends React.Component {
     constructor(props) {
@@ -8,8 +9,7 @@ export default class MyApp extends React.Component {
             date: new Date(),
             //月のデータ
             month_days: {
-            },
-            test: "僕は、消えません"
+            }
         };
         this.getTileClass = this.getTileClass.bind(this);
         this.getTileContent = this.getTileContent.bind(this);
@@ -53,9 +53,13 @@ export default class MyApp extends React.Component {
     onclic(e) {
         var date = this.getFormatDate(e);
         var savem = this.state.month_days
-        savem[date] = {
-            text: 'test',
-            is_holiday: true
+        // 要素が入っていた場合削除する
+        if (this.state.month_days[date]) {
+            delete savem[date];
+        } else {
+            savem[date] = {
+                text: 'test'
+            }
         }
         console.log(this.state.month_days);
         this.getTileClass = this.getTileClass.bind(this);
@@ -72,8 +76,8 @@ export default class MyApp extends React.Component {
             <Calendar
                 locale="ja-JP"
                 value={this.state.date}
-                calendarType="Hebrew"
-                classname={"class1"}
+                calendarType="US"
+                classname={calen}
                 tileClassName={this.getTileClass}
                 tileContent={this.getTileContent}
                 onClickDay={(e) => this.onclic(e)}

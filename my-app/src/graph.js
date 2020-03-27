@@ -60,7 +60,10 @@ export default class graph extends PureComponent {
                     height={300}
                     data={this.state.posts}
                     margin={{
-                        top: 5, right: window.innerWidth * 0.05, left: window.innerWidth * 0.05
+                        top: 5,
+                        right: 20,
+                        left: 20,
+                        bottom: 15
                     }
 
                     }
@@ -70,8 +73,18 @@ export default class graph extends PureComponent {
                         dataKey="DATE"
                     />
                     <YAxis
+                        orientation="left"
+                        yAxisId="leftYAxis"
+                        domain={['dataMin', 'dataMax']}
                         ticks={[0, 10, 25, 50, 75, 100]} // Y軸に表示する温度
                         unit="%" // Y軸の単位
+                    />
+                    <YAxis
+                        orientation="right"
+                        yAxisId="rightYAxis"
+                        domain={['dataMin', 'dataMax']}
+                        ticks={[0, 10, 20, 30, 40, 50]} // Y軸に表示する温度
+                        unit="°C" // Y軸の単位
                     />
                     <Tooltip />
                     <Legend />
