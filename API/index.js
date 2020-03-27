@@ -27,7 +27,8 @@ const connection = mysql.createConnection({
   host: "192.168.1.9",
   user: "root",
   password: "password",
-  database: "kumeta"
+  database: "kumeta",
+  timezone: 'jst' ,//timezoneの指定省略の場合はシステムローカルになる
 });
 
 app.get("/posts", function (req, res) {
@@ -76,7 +77,16 @@ app.post("/graph", function (req, res) {
   // リクエストボディを出力
   console.log(req.body);
 
-  connection.query("SELECT * FROM soil WHERE DATE BETWEEN '2020-1-1' AND '{}-{}-{}'".format(req.body.Year,req.body.Month,req.body.Day),
+  connection.query("SELECT * FROM soil WHERE DATE BETWEEN '{}-{}-{}' AND '{}-{}-{}'"
+    .format(
+      
+      req.body.oldYear,
+      req.body.oldMonth,
+      req.body.oldDay,
+      req.body.nowYear,
+      req.body.nowMonth,
+      req.body.nowDay
+     ),
     function (
       error,
       results,

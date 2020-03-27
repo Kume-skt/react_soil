@@ -9,16 +9,13 @@ export default class graph extends PureComponent {
         super(props);
         this.state = {
             posts: [],
-            Year: "",
-            Month: "",
-            Day: ""
         };
         console.log(this.props);
 
 
     }
 
-    getGraphData(Year, Month, Day) {
+    getGraphData(now, old) {
         fetch("http://localhost:4000/graph",
             {
                 method: "POST",
@@ -26,24 +23,27 @@ export default class graph extends PureComponent {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    Year: Year,
-                    Month: Month,
-                    Day: Day
+                    nowYear: now.getFullYear(),
+                    //月は0～11で帰ってくる
+                    nowMonth: now.getMonth() + 1,
+                    /*下記の+1は、現時点での日付が帰ってくる
+                    しかし、今日のも併せてみたいので翌日の日付を送る*/
+                    nowDay: now.getDate()+1,
+
+                    oldYear: old.getFullYear(),
+                    oldMonth: old.getMonth() + 1,
+                    oldDay: old.getDate()
                 })
             })
             .then(response => response.json())
             .then(posts => this.setState({ posts }));
     }
     componentWillReceiveProps(nextpro) {
-        this.SetSelectYear(nextpro.Gy);
-        this.SetSelectMonth(nextpro.Gm);
-        this.SetSelectDay(nextpro.Gd);
-        console.log(nextpro);
+        console.log(nextpro.nowDate);
+        console.log(nextpro.oldDate);
         
-        this.getGraphData(
-            nextpro.Gy,
-            nextpro.Gm,
-            nextpro.Gd)
+        
+        this.getGraphData(nextpro.nowDate, nextpro.oldDate)
     }
     SetSelectYear(item) {
         this.setState({ ...this.state, Year: item })

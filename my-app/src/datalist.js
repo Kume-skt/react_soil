@@ -8,7 +8,10 @@ export default class datalist extends React.Component {
             day: [],
             selectYear: "",
             selectMonth: "",
-            selectDay: ""
+            selectDay: "",
+
+            oldDate : new Date(),
+            nowDate : new Date()
         };
         this.daylist = ["Year", "Month", "Day"];
         this.dateMap = {
@@ -16,7 +19,6 @@ export default class datalist extends React.Component {
             Month: [],
             Day: []
         }
-        this.saveDate = ["", "", ""];
     }
     // 初期処理
     componentWillMount() {
@@ -43,27 +45,50 @@ export default class datalist extends React.Component {
             );
     }
 
-    onClick() {
-        console.log(this.state);
-
+    // //ユーザが選択した日付をセットする
+    // ChangeYearEvent(e) {
+    //     this.saveDate[0] = e.target.value;
+    // }
+    // ChangeMonthEvent(e) {
+    //     this.saveDate[1] = e.target.value;
+    // }
+    // ChangeDayEvent(e) {
+    //     this.saveDate[2] = e.target.value;
+    // }
+    // ChangeDatehEvent() {
+    //     this.setState({
+    //         ...this.state,
+    //         selectYear: this.saveDate[0],
+    //         selectMonth: this.saveDate[1],
+    //         selectDay: this.saveDate[2]
+    //     })
+    // }
+    onClickDay() {
+        // 一日前
+        var date = new Date();
+        date.setDate(date.getDate() - 1);
+        this.setState({ ...this.state, oldDate: date })
+        console.log(date.getDate());
     }
 
-    ChangeYearEvent(e) {
-        this.saveDate[0] = e.target.value;
+    onClickWeek() {
+        // 一週間前
+        var date = new Date();
+        date.setDate(date.getDate() - 7);
+        
+        this.setState({ ...this.state, oldDate: date });
+        console.log(date.getDate());
     }
-    ChangeMonthEvent(e) {
-        this.saveDate[1] = e.target.value;
+    onClickMonth() {
+        // 一ヶ月前
+        var date = new Date();
+        date.setMonth(date.getMonth()-1)
+        
+        this.setState({ ...this.state, oldDate: date });
+        console.log(date.getMonth());
     }
-    ChangeDayEvent(e) {
-        this.saveDate[2] = e.target.value;
-    }
-    ChangeDatehEvent() {
-        this.setState({
-            ...this.state,
-            selectYear: this.saveDate[0],
-            selectMonth: this.saveDate[1],
-            selectDay: this.saveDate[2]
-        })
+    selectDate() {
+
     }
 
     render() {
@@ -95,6 +120,14 @@ export default class datalist extends React.Component {
         return (
 
             <div>
+                <button onClick={() => { this.onClickDay() }}>
+                    １日
+                </button><button onClick={() => { this.onClickWeek() }}>
+                    １週間
+                </button><button onClick={() => { this.onClickMonth() }}>
+                    １ヶ月
+                </button>
+
                 <select onChange={(e) => this.ChangeYearEvent(e)}>
                     <option value="何年選択" selected>何年</option>
                     {this.dateMap.Year.map(d => <option value={d} onChange={(e) => this.ChangeYearEvent(e)}>{d}年</option>)}
@@ -113,7 +146,7 @@ export default class datalist extends React.Component {
                     クリック
                 </button>
 
-                <div><Graph Gy={this.state.selectYear} Gm={this.state.selectMonth} Gd={this.state.selectDay} /></div>
+                <div><Graph nowDate={this.state.nowDate}oldDate={this.state.oldDate} /></div>
 
                 <div><Calendar /></div>
 
