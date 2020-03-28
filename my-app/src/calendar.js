@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Calendar from 'react-calendar';
 import calen from "./calendar.css"
+import datalist from './datalist';
 
 export default class MyApp extends React.Component {
     constructor(props) {
@@ -11,13 +12,22 @@ export default class MyApp extends React.Component {
             month_days: {
             }
         };
+        this.calendarURL = 'http://localhost:4000/calendar'
+        // this.getTileClass = this.getTileClass.bind(this);
+        // this.getTileContent = this.getTileContent.bind(this);
+    }
+    componentWillMount() {
+        this.GetMonth_days()
+        console.log("syori");
         this.getTileClass = this.getTileClass.bind(this);
         this.getTileContent = this.getTileContent.bind(this);
+        this.setState({ date: new Date(), month_days: this.state.month_days})
+       
     }
-
     // state の日付と同じ表記に変換
     getFormatDate(date) {
-        return `${date.getFullYear()}${('0' + (date.getMonth() + 1)).slice(-2)}${('0' + date.getDate()).slice(-2)}`;
+        return `${date.getFullYear() + "-"}${('0' + (date.getMonth() + 1)).slice(-2) + "-"}${('0' + date.getDate()).slice(-2)}`;
+        // return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
     }
 
     //日付のクラスを付与 (祝日用)
@@ -56,21 +66,55 @@ export default class MyApp extends React.Component {
         // 要素が入っていた場合削除する
         if (this.state.month_days[date]) {
             delete savem[date];
-        } else {
+            this.post(date, 0);
+        }
+        else {
             savem[date] = {
                 text: 'test'
             }
+            this.post(date, 1);
         }
-        console.log(this.state.month_days);
         this.getTileClass = this.getTileClass.bind(this);
         this.getTileContent = this.getTileContent.bind(this);
         // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
         // なんかセットしなくても変わった要相談
         this.setState({
-            ...this.state, month_days: this.state.month_days
+            date: new Date(), month_days: this.state.month_days
         })
         // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     }
+    /////////////////////////////////////////////////////
+    // API処理
+    post(date, io) {
+        fetch(this.calendarURL,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    date: date,
+                    frg: io
+                })
+            }
+        )
+            .then(res => res.json())
+    }
+    GetMonth_days() {
+        var dataAdd = this.state.month_days
+        fetch('http://localhost:4000/calendarData')
+            .then(res => res.json())
+            .then(function a(params) {
+                console.log(params);
+                for (const key in params) {
+                    if (params.hasOwnProperty(key)) {
+                        dataAdd[params[key]['Date'].slice(0, 10)] = { text: "adf" }
+                    }
+                }
+            }
+        )
+    }
+    /////////////////////////////////////////////////////
     render() {
         return (
             <Calendar
