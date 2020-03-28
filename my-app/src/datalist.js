@@ -128,7 +128,7 @@ export default class datalist extends React.Component {
                     １ヶ月
                 </button>
 
-                <select onChange={(e) => this.ChangeYearEvent(e)}>
+                {/* <select onChange={(e) => this.ChangeYearEvent(e)}>
                     <option value="何年選択" selected>何年</option>
                     {this.dateMap.Year.map(d => <option value={d} onChange={(e) => this.ChangeYearEvent(e)}>{d}年</option>)}
                 </select>
@@ -144,9 +144,9 @@ export default class datalist extends React.Component {
                 </select>
                 <button onClick={() => { this.ChangeDatehEvent() }}>
                     クリック
-                </button>
+                </button> */}
 
-                <div><Graph className="test" nowDate={this.state.nowDate} oldDate={this.state.oldDate} /></div>
+                <div><Graph nowDate={this.state.nowDate} oldDate={this.state.oldDate} /></div>
                 
                 <div><Calendar /></div>
 

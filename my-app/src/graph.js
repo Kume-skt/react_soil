@@ -16,7 +16,7 @@ export default class graph extends PureComponent {
     }
 
     getGraphData(now, old) {
-        fetch("http://192.168.0.3:4000/graph",
+        fetch("http://localhost:4000/graph",
             {
                 method: "POST",
                 headers: {
@@ -56,13 +56,13 @@ export default class graph extends PureComponent {
             <div className="graph">
 
                 <LineChart
-                    width={700}
+                    width={window.innerWidth*0.7}
                     height={300}
                     data={this.state.posts}
                     margin={{
                         top: 5,
-                        right: 20,
-                        left: 20,
+                        right: window.innerWidth*0.11,
+                        left: 0,
                         bottom: 15
                     }
 
@@ -79,16 +79,20 @@ export default class graph extends PureComponent {
                         ticks={[0, 10, 25, 50, 75, 100]} // Y軸に表示する温度
                         unit="%" // Y軸の単位
                     />
-                    <YAxis
+                    {/* <YAxis
                         orientation="right"
                         yAxisId="rightYAxis"
                         domain={['dataMin', 'dataMax']}
                         ticks={[0, 10, 20, 30, 40, 50]} // Y軸に表示する温度
                         unit="°C" // Y軸の単位
-                    />
+                    /> */}
                     <Tooltip />
                     <Legend />
-                    <Line type="monotone" dataKey="soil_value" stroke="#82ca9d" />
+                    <Line
+                        type="monotone"
+                        dataKey="soil_value"
+                        stroke="#82ca9d"
+                        yAxisId='leftYAxis' />
                 </LineChart>
             </div>
         );

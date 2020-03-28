@@ -3,10 +3,6 @@
   /* 追記 */
   background-image: url('./img/back_hatake.jpg');
   background-size: cover;
-  display: inline-block;
-  margin: 0,auto;
-  background-color: blueviolet;
- 
  }
 
 .App-logo {
@@ -14,13 +10,11 @@
 }
 
 .App-header {
+  width: 80%;
   background-color:white;
-  /* display: inline-block; */
+  display: inline-block;
   flex-direction: column;
   text-align: left;
-  /* margin-top: 5px;
-  margin-left: 5%;
-  margin-right: 5%; */
   font-size: calc(20px + 2vmin);
   color: black;
 }
@@ -37,20 +31,15 @@
 }
 #App .graph{
   width: 80%;
-  max-width: 1000px;
-  /* max-height:500px ; */
-  text-align: center;
-  margin-left: 5%;
-  margin-right: 5%;
+  display: inline-block;
   background-color: white;
 }
 #time{
   color:darkorange;
 }
 .test{
-  display: inline-block;
   text-align: center;
-  background-color: white;
+  display: inline-block;
 }
 #App .time{
   text-align: center;
