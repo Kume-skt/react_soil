@@ -9,21 +9,24 @@ export default class MyApp extends React.Component {
         this.state = {
             date: new Date(),
             //月のデータ
-            month_days: {
-            }
+            month_days: {}
         };
+        this.saveMaonth = { day: {} }
         this.calendarURL = 'http://localhost:4000/calendar'
-        // this.getTileClass = this.getTileClass.bind(this);
-        // this.getTileContent = this.getTileContent.bind(this);
-    }
-    componentWillMount() {
-        this.GetMonth_days()
-        console.log("syori");
         this.getTileClass = this.getTileClass.bind(this);
         this.getTileContent = this.getTileContent.bind(this);
-        this.setState({ date: new Date(), month_days: this.state.month_days})
+    }
+    componentWillMount() {
+        // this.GetMonth_days()
+        console.log("syori");
+        this.GetMonth_days()
+        this.setState({...this.state,month_days:this.saveMaonth.day})
+        // this.getTileClass = this.getTileClass.bind(this);
+        // this.getTileContent = this.getTileContent.bind(this);
+        // this.setState({ date: new Date(), month_days: this.state.month_days})
        
     }
+
     // state の日付と同じ表記に変換
     getFormatDate(date) {
         return `${date.getFullYear() + "-"}${('0' + (date.getMonth() + 1)).slice(-2) + "-"}${('0' + date.getDate()).slice(-2)}`;
@@ -81,6 +84,8 @@ export default class MyApp extends React.Component {
         this.setState({
             date: new Date(), month_days: this.state.month_days
         })
+        // console.log(this.state.month_days);
+        
         // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
     }
     /////////////////////////////////////////////////////
@@ -101,18 +106,25 @@ export default class MyApp extends React.Component {
             .then(res => res.json())
     }
     GetMonth_days() {
-        var dataAdd = this.state.month_days
-        fetch('http://localhost:4000/calendarData')
-            .then(res => res.json())
-            .then(function a(params) {
-                console.log(params);
-                for (const key in params) {
-                    if (params.hasOwnProperty(key)) {
-                        dataAdd[params[key]['Date'].slice(0, 10)] = { text: "adf" }
-                    }
-                }
-            }
-        )
+        var dataAdd = this.saveMaonth.day;
+        // fetch('http://localhost:4000/calendarData')
+        //     .then(res => res.json())
+        //     .then(function a(params) {
+        //         console.log(params);
+        //         for (const key in params) {
+        //             if (params.hasOwnProperty(key)) {
+        //                 dataAdd[params[key]['Date'].slice(0, 10)] = { text: "adf" }
+        //             console.log(dataAdd);
+                    
+        //             }
+        //         }
+        //     }
+        // )
+        for (let index = 1; index < 10; index++) {
+            dataAdd["2020-03-0"+index]={text:"seikou"}
+        }
+        console.log(this.saveMaonth);
+        
     }
     /////////////////////////////////////////////////////
     render() {
