@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
 import Calendar from 'react-calendar';
 import calen from "./calendar.css"
-import datalist from './datalist';
 
-export default class MyApp extends React.Component {
+export default class MyCalendar extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,16 +10,13 @@ export default class MyApp extends React.Component {
             //月のデータ
             month_days: {}
         };
-        this.saveMaonth = { day: {} }
         this.calendarURL = 'http://localhost:4000/calendar'
         this.getTileClass = this.getTileClass.bind(this);
         this.getTileContent = this.getTileContent.bind(this);
     }
     componentWillMount() {
-        // this.GetMonth_days()
         console.log("syori");
         this.GetMonth_days()
-        this.setState({...this.state,month_days:this.saveMaonth.day})
         // this.getTileClass = this.getTileClass.bind(this);
         // this.getTileContent = this.getTileContent.bind(this);
         // this.setState({ date: new Date(), month_days: this.state.month_days})
@@ -106,28 +102,22 @@ export default class MyApp extends React.Component {
             .then(res => res.json())
     }
     GetMonth_days() {
-        var dataAdd = this.saveMaonth.day;
-        // fetch('http://localhost:4000/calendarData')
-        //     .then(res => res.json())
-        //     .then(function a(params) {
-        //         console.log(params);
-        //         for (const key in params) {
-        //             if (params.hasOwnProperty(key)) {
-        //                 dataAdd[params[key]['Date'].slice(0, 10)] = { text: "adf" }
-        //             console.log(dataAdd);
-                    
-        //             }
-        //         }
-        //     }
-        // )
-        for (let index = 1; index < 10; index++) {
-            dataAdd["2020-03-0"+index]={text:"seikou"}
-        }
-        console.log(this.saveMaonth);
-        
+        fetch('http://localhost:4000/calendarData')
+            .then(res => res.json())
+            .then(json => {
+                var save={}
+                for (let index = 0; index < json.length; index++) {
+                    const element = json[index];
+                    save[element["Date"].slice(0,10)]={text:"aaaa"}
+                }
+                this.setState({...this.state, month_days:save})
+            })   
     }
     /////////////////////////////////////////////////////
     render() {
+        this.getTileClass = this.getTileClass.bind(this);
+        this.getTileContent = this.getTileContent.bind(this);
+        console.log(this.state)
         return (
             <Calendar
                 locale="ja-JP"
