@@ -17,17 +17,13 @@ export default class MyCalendar extends React.Component {
     componentWillMount() {
         console.log("syori");
         this.GetMonth_days()
-        // this.getTileClass = this.getTileClass.bind(this);
-        // this.getTileContent = this.getTileContent.bind(this);
-        // this.setState({ date: new Date(), month_days: this.state.month_days})
        
     }
 
     // state の日付と同じ表記に変換
     getFormatDate(date) {
         return `${date.getFullYear() + "-"}${('0' + (date.getMonth() + 1)).slice(-2) + "-"}${('0' + date.getDate()).slice(-2)}`;
-        // return date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
-    }
+      }
 
     //日付のクラスを付与 (祝日用)
     getTileClass({ date, view }) {
@@ -69,7 +65,7 @@ export default class MyCalendar extends React.Component {
         }
         else {
             savem[date] = {
-                text: 'test'
+                text: 'mizu'
             }
             this.post(date, 1);
         }
@@ -108,7 +104,7 @@ export default class MyCalendar extends React.Component {
                 var save={}
                 for (let index = 0; index < json.length; index++) {
                     const element = json[index];
-                    save[element["Date"].slice(0,10)]={text:"aaaa"}
+                    save[element["Date"].slice(0,10)]={text:"mizu"}
                 }
                 this.setState({...this.state, month_days:save})
             })   
