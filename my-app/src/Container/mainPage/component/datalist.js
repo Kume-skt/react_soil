@@ -50,7 +50,6 @@ export default class datalist extends React.Component {
   onClickMonth() {
     this.setState({ ...this.state, oldDate: day.oneMonth });
   }
-  selectDate() {}
 
   render() {
     // dataリストのkeyで回す
