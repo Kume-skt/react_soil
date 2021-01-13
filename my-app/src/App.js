@@ -1,14 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React from "react";
+// import date from './Container/Timer'
+import MainPage from "./Container/mainPage";
 
 export default class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <div id="time"></div>
-        <div id="dataSelectList"></div>
+        <MainPage />
       </div>
     );
   }

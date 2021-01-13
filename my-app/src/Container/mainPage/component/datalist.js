@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import Graph from './graph';
-import Calendar from './calendar'
+import Graph from '../../../graph';
+import Calendar from '../../../calendar'
 export default class datalist extends React.Component {
     constructor(props) {
         super(props);
