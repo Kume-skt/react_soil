@@ -1,7 +1,11 @@
 import React from "react";
-
-function MainPage(params) {
-  return <div>main</div>;
+import Data from "./component/datalist";
+function MainPage() {
+  return (
+    <div>
+      <Data />
+    </div>
+  );
 }
 
 export default MainPage;
