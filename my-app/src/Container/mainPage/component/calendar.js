@@ -54,17 +54,15 @@ export default class MyApp extends React.Component {
   onclic(e) {
     var date = this.getFormatDate(e);
     var savem = this.state.month_days;
-    savem[date] = { text: "test" };
+    savem[date] = { text: "水" };
     console.log(this.state.month_days);
     this.getTileClass = this.getTileClass.bind(this);
     this.getTileContent = this.getTileContent.bind(this);
-    // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
-    // なんかセットしなくても変わった要相談
+
     this.setState({
       ...this.state,
       month_days: this.state.month_days,
     });
-    // ＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝
   }
   render() {
     return (
