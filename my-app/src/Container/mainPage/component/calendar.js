@@ -8,7 +8,7 @@ export default class MyApp extends React.Component {
       date: new Date(),
       //月のデータ
       month_days: {},
-      test: "僕は、消えません",
+      test: "",
     };
     this.getTileClass = this.getTileClass.bind(this);
     this.getTileContent = this.getTileContent.bind(this);
@@ -55,7 +55,7 @@ export default class MyApp extends React.Component {
     var date = this.getFormatDate(e);
     var savem = this.state.month_days;
     savem[date] = { text: "水" };
-    console.log(this.state.month_days);
+
     this.getTileClass = this.getTileClass.bind(this);
     this.getTileContent = this.getTileContent.bind(this);
 

@@ -1,9 +1,16 @@
 import React from "react";
-import Data from "./component/datalist";
+import GraphData from "./component/datalist";
+import Calendar from "./component/calendar";
 function MainPage() {
   return (
     <div>
-      <Data />
+      <div>
+        <GraphData />
+      </div>
+
+      <div>
+        <Calendar />
+      </div>
     </div>
   );
 }

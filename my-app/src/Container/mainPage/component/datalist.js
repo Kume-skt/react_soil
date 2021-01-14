@@ -42,39 +42,16 @@ export default class datalist extends React.Component {
       .then((data) => this.setState({ day: this.state.day.concat(data) }));
   }
   onClickDay() {
-    this.setState({ ...this.state, oldDate: day.oneDay });
+    this.setState({ ...this.state, oldDate: day.oneDay() });
   }
   onClickWeek() {
-    this.setState({ ...this.state, oldDate: day.oneWeek });
+    this.setState({ ...this.state, oldDate: day.oneWeek() });
   }
   onClickMonth() {
-    this.setState({ ...this.state, oldDate: day.oneMonth });
+    this.setState({ ...this.state, oldDate: day.oneMonth() });
   }
 
   render() {
-    // dataリストのkeyで回す
-
-    for (const key in this.daylist) {
-      if (this.daylist.hasOwnProperty(key)) {
-        // APIの問い合わせ結果で回す
-        for (const dataNumber in this.state.day) {
-          if (this.state.day.hasOwnProperty(dataNumber)) {
-            // キーワードが同一判定
-            if (
-              Object.keys(this.state.day[dataNumber])[0] == this.daylist[key]
-            ) {
-              // キーワードが一致したものを指定の位置に再配置
-              this.dateMap[this.daylist[key]].push(
-                this.state.day[dataNumber][this.daylist[key]]
-              );
-              // 追加データ元を削除
-              delete this.state.day[dataNumber];
-            }
-          }
-        }
-      }
-    }
-
     return (
       <div>
         <button
@@ -135,10 +112,6 @@ export default class datalist extends React.Component {
 
         <div>
           <Graph nowDate={this.state.nowDate} oldDate={this.state.oldDate} />
-        </div>
-
-        <div>
-          <Calendar />
         </div>
       </div>
     );

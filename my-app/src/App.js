@@ -8,6 +8,7 @@ const cssstyle = css({
   width: "90%",
   margin: "auto",
 });
+
 export default class App extends React.Component {
   render() {
     return (
